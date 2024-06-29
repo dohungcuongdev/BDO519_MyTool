@@ -1,0 +1,16 @@
+{
+    "name": "bdo519_mytool",
+    "version": "1.0.0",
+    "description": "BDO519_MyTool",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "author": "dohungcuongdev",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.19.2",
+        "mongodb": "^4.17.2",
+        "mongoose": "^7.0.0"
+    }
+}

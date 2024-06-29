@@ -1,0 +1,423 @@
+{
+	"info": {
+		"_postman_id": "91caf3f7-9595-453b-9377-12b2afc36936",
+		"name": "BDO519_MyTool",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7648839"
+	},
+	"item": [
+		{
+			"name": "GET accounts (login server)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/loginserver/accounts?accountName=test",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"loginserver",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "accountName",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET accounts (game server)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/gameserver/accounts?family=Female",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"gameserver",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "family",
+							"value": "Female"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update cash + accessLvl by account name",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cash\": 999999999,\r\n    \"accessLvl\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/loginserver/accounts/hungcuong",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"loginserver",
+						"accounts",
+						"hungcuong"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET players",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/players?accountName=hungcuong",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players"
+					],
+					"query": [
+						{
+							"key": "accountName",
+							"value": "hungcuong"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET players summary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/summary/players?accountName=hungcuong",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"summary",
+						"players"
+					],
+					"query": [
+						{
+							"key": "accountName",
+							"value": "hungcuong"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET player by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/players/Tamer",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players",
+						"Tamer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clone player",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"WonderLahn\",\r\n    \"cloneAppearanceFromName\": \"Lahn\",\r\n    \"cloneDataFromName\": \"Lahn\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/players",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update player (name + level + appearance)",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Wizzard\",\r\n    \"level\": 20,\r\n    \"copyAppearanceFromName\": \"Wizzard\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/players/Wizzard",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players",
+						"Wizzard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get quests",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/players/Valkyrie/quests",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players",
+						"Valkyrie",
+						"quests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Complete quests",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"groupId\": 21001,\r\n        \"questId\": 26,\r\n        \"acceptedTime\": 1718987240980,\r\n        \"acceptedDateTime\": \"6/21/2024, 11:27:20 PM\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/players/SnShield/quests",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players",
+						"SnShield",
+						"quests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Complete all quests",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/players/Archer/quests?completeAll=true",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players",
+						"Archer",
+						"quests"
+					],
+					"query": [
+						{
+							"key": "completeAll",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update quests",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"progressQuestList\": [\r\n        {\r\n            \"groupId\": 21001,\r\n            \"questId\": 25\r\n        },\r\n        {\r\n            \"groupId\": 1001,\r\n            \"questId\": 30,\r\n            \"steps\": [\r\n                1,\r\n                0,\r\n                0,\r\n                0,\r\n                0\r\n            ],\r\n            \"acceptedTime\": 1719079074933\r\n        }\r\n    ],\r\n    \"clearedQuestList\": [\r\n        {\r\n            \"groupId\": 1001,\r\n            \"questId\": 18,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21001,\r\n            \"questId\": 20,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21001,\r\n            \"questId\": 21,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21001,\r\n            \"questId\": 22,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21001,\r\n            \"questId\": 23,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21001,\r\n            \"questId\": 24,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21001,\r\n            \"questId\": 29,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 683,\r\n            \"questId\": 4,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 683,\r\n            \"questId\": 6,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 1,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 2,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 3,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 4,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 5,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 6,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 7,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 8,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 9,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 10,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 11,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 12,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 21117,\r\n            \"questId\": 13,\r\n            \"completedTime\": 0\r\n        },\r\n        {\r\n            \"groupId\": 717,\r\n            \"questId\": 1,\r\n            \"completedTime\": 0\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/players/MartialArt/quests",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players",
+						"MartialArt",
+						"quests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "By Pass Bugged Quest",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"groupId\": 21003,\r\n    \"questId\": 8,\r\n    \"steps\": [\r\n        1,\r\n        0,\r\n        0,\r\n        0,\r\n        0\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/players/MartialArt/quests",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players",
+						"MartialArt",
+						"quests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Copy Stage (items + quests + ...)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"copyStageFromName\": \"Tamer\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/players/Darkness/stages",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players",
+						"Darkness",
+						"stages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete player",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/players/Tester",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players",
+						"Tester"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
