@@ -543,17 +543,27 @@ app.post('/players/:name/stages', async (req, res) => {
                 let sortedCopyEqItems = sort(copyEqItems);
                 sortedCopyEqItems[0] = sortedEqItems[0];
                 sortedCopyEqItems[1] = sortedEqItems[1];
-                equipments.items = sortedCopyEqItems;
+                equipments.items = sortedCopyEqItems.filter(item => item.price > 0);
+                for (let item of sortedEqItems) {
+                    let exists = equipments.items.some(it => it.index === item.index);
+                    if(!exists && item.price == 0) {
+                        equipments.items.push(item);
+                    }
+                }
             }
             const playerBag = {
                 ...copyStageFromPlayer.playerBag,
                 Equipments: equipments
             }
-            // should reset all skill points before copy
+            const playerAvailableSkillPoints = player.skillList.availableSkillPoints;
+            const playerTotalSkillPoints = player.skillList.totalSkillPoints;
+            const copyTotalSkillPoints = copyStageFromPlayer.skillList.totalSkillPoints;
+            let resultAvailableSkillPoints = playerAvailableSkillPoints + (copyTotalSkillPoints - playerTotalSkillPoints);
+            if (resultAvailableSkillPoints < 0) resultAvailableSkillPoints = 0;
             const skillList = {
                 ...copyStageFromPlayer.skillList,
                 skills: sameClass ? copyStageFromPlayer.skillList.skills : player.skillList.skills,
-                availableSkillPoints: sameClass ? copyStageFromPlayer.skillList.availableSkillPoints : copyStageFromPlayer.skillList.totalSkillPoints
+                availableSkillPoints: sameClass ? copyStageFromPlayer.skillList.availableSkillPoints : resultAvailableSkillPoints
             }
             let updateObject = {
                 level: copyStageFromPlayer.level,
