@@ -9,7 +9,9 @@
     "author": "dohungcuongdev",
     "license": "ISC",
     "dependencies": {
+        "archiver": "^7.0.1",
         "express": "^4.19.2",
+        "fs-extra": "^11.2.0",
         "mongodb": "^4.17.2",
         "mongoose": "^7.0.0"
     }

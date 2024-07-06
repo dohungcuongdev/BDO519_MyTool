@@ -594,6 +594,10 @@ app.post('/players/:name/stages', async (req, res) => {
     }
 });
 
+function sort(items) {
+    return items.sort((a, b) => a.index - b.index);
+}
+
 // CORRECT SKILL POINTS
 app.patch('/players/:name/correctSkillPoints', async (req, res) => {
     try {
@@ -601,10 +605,10 @@ app.patch('/players/:name/correctSkillPoints', async (req, res) => {
         const player = await gsPlayers.findOne({ name });
         if (player) {
             let updateObject = {}
-            if(req.body.newSkillExpLevel) updateObject["skillList.skillExpLevel"] = newSkillExpLevel;
-            if(req.body.newTotalSkillPoints) updateObject["skillList.newTotalSkillPoints"] = newTotalSkillPoints;
-            if(req.body.ewAvailableSkillPoints) updateObject["skillList.newAvailableSkillPoints"] = newAvailableSkillPoints;
-            if(req.body.newCurrentSkillPointsExp) updateObject["skillList.newCurrentSkillPointsExp"] = newCurrentSkillPointsExp;
+            if (req.body.skillExpLevel) updateObject["skillList.skillExpLevel"] = req.body.skillExpLevel;
+            if (req.body.totalSkillPoints) updateObject["skillList.totalSkillPoints"] = req.body.totalSkillPoints;
+            if (req.body.availableSkillPoints) updateObject["skillList.availableSkillPoints"] = req.body.availableSkillPoints;
+            if (req.body.currentSkillPointsExp) updateObject["skillList.currentSkillPointsExp"] = req.body.currentSkillPointsExp;
             await gsPlayers.updateOne(
                 { name: name },
                 { $set: updateObject }
@@ -620,9 +624,74 @@ app.patch('/players/:name/correctSkillPoints', async (req, res) => {
     }
 });
 
-function sort(items) {
-    return items.sort((a, b) => a.index - b.index);
-}
+
+// DOWNLOAD DATA ON SERVER
+const fs = require('fs-extra');
+const archiver = require('archiver');
+const path = require('path');
+app.get('/downloadServerData', async (req, res) => {
+    const folderPath = 'C:/work/freetime/game/BDO519/Database/data';
+    const zipFileName = 'data.zip';
+    const zipFilePath = path.join(__dirname, zipFileName);
+
+    // Create a zip archive of the folder
+    const output = fs.createWriteStream(zipFilePath);
+    const archive = archiver('zip', {
+        zlib: { level: 9 } // Sets the compression level.
+    });
+
+    output.on('close', () => {
+        console.log(archive.pointer() + ' total bytes');
+        console.log('archiver has been finalized and the output file descriptor has closed.');
+
+        // Ensure headers are set only once
+        if (!res.headersSent) {
+            res.set('Content-Type', 'application/zip');
+            res.set('Content-Disposition', `attachment; filename=${zipFileName}`);
+            res.sendFile(zipFilePath, (err) => {
+                if (err) {
+                    console.log('Error sending file:', err);
+                    res.status(500).json({ error: err });
+                } else {
+                    // Optionally delete the file after sending
+                    fs.unlink(zipFilePath, (err) => {
+                        if (err) {
+                            console.log('Error deleting zip file:', err);
+                        } else {
+                            console.log('Zip file deleted successfully');
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+    output.on('error', (err) => {
+        console.error('Stream error:', err);
+        if (!res.headersSent) {
+            res.status(500).json({ error: err.message });
+        }
+    });
+
+    archive.on('error', (err) => {
+        console.error('Archiver error:', err);
+        if (!res.headersSent) {
+            res.status(500).json({ error: err.message });
+        }
+    });
+
+    archive.pipe(output);
+    archive.directory(folderPath, false);
+
+    try {
+        await archive.finalize();
+    } catch (err) {
+        console.error('Error in /downloadServerData:', err);
+        if (!res.headersSent) {
+            res.status(500).json({ error: err.message });
+        }
+    }
+});
 
 app.listen(port, () => {
     console.log(`API listening at http://localhost:${port}`);
