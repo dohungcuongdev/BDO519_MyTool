@@ -546,7 +546,7 @@ app.post('/players/:name/stages', async (req, res) => {
                 equipments.items = sortedCopyEqItems.filter(item => item.price > 0);
                 for (let item of sortedEqItems) {
                     let exists = equipments.items.some(it => it.index === item.index);
-                    if(!exists && item.price == 0) {
+                    if (!exists && item.price == 0) {
                         equipments.items.push(item);
                     }
                 }
@@ -579,6 +579,32 @@ app.post('/players/:name/stages', async (req, res) => {
                 playerBag,
                 skillList
             }
+            await gsPlayers.updateOne(
+                { name: name },
+                { $set: updateObject }
+            );
+            const playerUpdated = await gsPlayers.findOne({ name });
+            res.status(200).json(playerUpdated);
+        } else {
+            res.status(404).json({ error: 'player not found' });
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// CORRECT SKILL POINTS
+app.patch('/players/:name/correctSkillPoints', async (req, res) => {
+    try {
+        const name = req.params.name;
+        const player = await gsPlayers.findOne({ name });
+        if (player) {
+            let updateObject = {}
+            if(req.body.newSkillExpLevel) updateObject["skillList.skillExpLevel"] = newSkillExpLevel;
+            if(req.body.newTotalSkillPoints) updateObject["skillList.newTotalSkillPoints"] = newTotalSkillPoints;
+            if(req.body.ewAvailableSkillPoints) updateObject["skillList.newAvailableSkillPoints"] = newAvailableSkillPoints;
+            if(req.body.newCurrentSkillPointsExp) updateObject["skillList.newCurrentSkillPointsExp"] = newCurrentSkillPointsExp;
             await gsPlayers.updateOne(
                 { name: name },
                 { $set: updateObject }
