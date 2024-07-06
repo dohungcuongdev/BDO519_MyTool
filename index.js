@@ -527,7 +527,7 @@ app.post('/accounts/stages', async (req, res) => {
     for (let player of players) {
         req.params.name = player.name;
         const result = await copyPlayerStages(req);
-        if (result.error) fail.push(player.name);
+        if (result.error) fail.push({name: player.name, reason: result.error});
         else success.push(player.name);
     }
     res.status(200).json({success, fail});
