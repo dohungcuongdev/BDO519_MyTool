@@ -398,7 +398,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"copyStageFromName\": \"Kunoichi\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
