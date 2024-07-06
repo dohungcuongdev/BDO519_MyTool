@@ -209,6 +209,7 @@ app.get('/summary/players', async (req, res) => {
         const summaryPlayers = players.map(player => ({
             name: player.name,
             level: player.level,
+            exp: player.exp,
             classType: player.classType
         }));
         res.status(200).json(summaryPlayers);
