@@ -512,12 +512,35 @@ function encodeCheckedQuestData(checkedQuestData) {
     return new Binary(buffer, Binary.SUBTYPE_DEFAULT);
 }
 
+// COPY STAGE OF PLAYER TO ALL PLAYERS IN SAME ACCOUNT
+app.post('/accounts/stages', async (req, res) => {
+    const players = await getPlayers(req);
+    let success = [];
+    let fail = [];
+    for (let player of players) {
+        req.params.name = player.name;
+        const result = await copyPlayerStages(req);
+        if (result.error) success.push(player.name);
+        else fail.push(player.name);
+    }
+    res.status(200).json({success, fail});
+})
+
 // COPY STAGE OF PLAYER
 app.post('/players/:name/stages', async (req, res) => {
+    const result = await copyPlayerStages(req);
+    if (result.error) {
+        res.status(result.status).json({ error: result.error });
+    } else {
+        res.status(result.status).json(result.data);
+    }
+});
+
+async function copyPlayerStages(req) {
     try {
         const copyStageFromName = req.body.copyStageFromName
         if (!copyStageFromName) {
-            res.status(400).json({ error: "copyStageFromName is mandatory" }); return;
+            return { status: 400, error: "copyStageFromName is mandatory" }
         }
 
         const name = req.params.name;
@@ -525,10 +548,10 @@ app.post('/players/:name/stages', async (req, res) => {
         if (player) {
             const copyStageFromPlayer = await gsPlayers.findOne({ name: copyStageFromName });
             if (!copyStageFromPlayer) {
-                res.status(404).json({ error: 'copyStageFromPlayer not found' }); return;
+                return { status: 404, error: 'copyStageFromPlayer not found' }
             }
             if (player._id == copyStageFromPlayer._id) {
-                res.status(200).json(player); return;
+                return { status: 200, data: player }
             }
             const sameClass = player.classType == copyStageFromPlayer.classType;
             const memo = {
@@ -584,15 +607,15 @@ app.post('/players/:name/stages', async (req, res) => {
                 { $set: updateObject }
             );
             const playerUpdated = await gsPlayers.findOne({ name });
-            res.status(200).json(playerUpdated);
+            return { status: 200, data: playerUpdated }
         } else {
-            res.status(404).json({ error: 'player not found' });
+            return { status: 404, error: 'player not found' }
         }
     } catch (err) {
         console.log(err);
-        res.status(500).json({ error: err.message });
+        return { status: 500, error: err.message }
     }
-});
+}
 
 function sort(items) {
     return items.sort((a, b) => a.index - b.index);
