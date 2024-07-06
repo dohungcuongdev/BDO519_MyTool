@@ -398,7 +398,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"copyStageFromName\": \"Mystic\"\r\n}",
+					"raw": "{\r\n    \"copyStageFromName\": \"Kunoichi\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -460,7 +460,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/downloadServerData?folderPath=D:/Black Desert Offline/BDO519LouLx/BDO519/Database/data",
+					"raw": "localhost:3000/downloadServerData?folderPath=C:/work/freetime/game/BDO519/Database/data",
 					"host": [
 						"localhost"
 					],
@@ -471,12 +471,12 @@
 					"query": [
 						{
 							"key": "folderPath",
-							"value": "C:/work/freetime/game/BDO519/Database/data",
-							"disabled": true
+							"value": "C:/work/freetime/game/BDO519/Database/data"
 						},
 						{
 							"key": "folderPath",
-							"value": "D:/Black Desert Offline/BDO519LouLx/BDO519/Database/data"
+							"value": "D:/Black Desert Offline/BDO519LouLx/BDO519/Database/data",
+							"disabled": true
 						}
 					]
 				}
