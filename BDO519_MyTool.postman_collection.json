@@ -140,14 +140,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/players/Shield",
+					"raw": "localhost:3000/players/Ranger",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"players",
-						"Shield"
+						"Ranger"
 					]
 				}
 			},
@@ -369,7 +369,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"copyStageFromName\": \"Wizzard\"\r\n}",
+					"raw": "{\r\n    \"copyStageFromName\": \"Mystic\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -377,15 +377,49 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/players/Shield/stages",
+					"raw": "localhost:3000/players/Ranger/stages",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"players",
-						"Shield",
+						"Ranger",
 						"stages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Copy Stage To All Players",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"copyStageFromName\": \"Mystic\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/accounts/stages?accountName=hungcuong",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"accounts",
+						"stages"
+					],
+					"query": [
+						{
+							"key": "accountName",
+							"value": "hungcuong"
+						}
 					]
 				}
 			},
@@ -398,7 +432,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"skillExpLevel\": 108,\r\n    \"totalSkillPoints\": 443,\r\n    \"availableSkillPoints\": 443,\r\n    \"currentSkillPointsExp\": 534221\r\n}",
+					"raw": "{\r\n    \"totalSkillPoints\": 446,\r\n    \"availableSkillPoints\": 446\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -406,14 +440,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/players/Maehwa/correctSkillPoints",
+					"raw": "localhost:3000/players/Wizzard/correctSkillPoints",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"players",
-						"Maehwa",
+						"Wizzard",
 						"correctSkillPoints"
 					]
 				}
