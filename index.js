@@ -512,11 +512,17 @@ function encodeCheckedQuestData(checkedQuestData) {
     return new Binary(buffer, Binary.SUBTYPE_DEFAULT);
 }
 
-// COPY STAGE OF PLAYER TO ALL PLAYERS IN SAME ACCOUNT
+// COPY STAGE OF PLAYER TO ALL PLAYERS
 app.post('/accounts/stages', async (req, res) => {
-    const players = await getPlayers(req);
     let success = [];
     let fail = [];
+    const players = await getPlayers(req);
+    if (players.length === 0) {
+        res.status(200).json({success, fail}); return;
+    }
+    if (!req.body.copyStageFromName) {
+        req.body.copyStageFromName = getHighestLevelAndExp(players).name;
+    }
     for (let player of players) {
         req.params.name = player.name;
         const result = await copyPlayerStages(req);
@@ -525,6 +531,17 @@ app.post('/accounts/stages', async (req, res) => {
     }
     res.status(200).json({success, fail});
 })
+
+function getHighestLevelAndExp(players) {
+    let highestLevelPlayer = players[0];
+    for (let player of players) {
+        if (player.level > highestLevelPlayer.level || 
+            (player.level === highestLevelPlayer.level && player.exp > highestLevelPlayer.exp)) {
+                highestLevelPlayer = player;
+        }
+    }
+    return highestLevelPlayer;
+}
 
 // COPY STAGE OF PLAYER
 app.post('/players/:name/stages', async (req, res) => {
