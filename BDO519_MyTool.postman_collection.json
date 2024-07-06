@@ -140,14 +140,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/players/Tamer",
+					"raw": "localhost:3000/players/Shield",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"players",
-						"Tamer"
+						"Shield"
 					]
 				}
 			},
@@ -160,7 +160,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"WonderLahn\",\r\n    \"cloneAppearanceFromName\": \"Lahn\",\r\n    \"cloneDataFromName\": \"Lahn\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Shield\",\r\n    \"cloneAppearanceFromName\": \"Valkyrie\",\r\n    \"cloneDataFromName\": \"Valkyrie\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -369,7 +369,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"copyStageFromName\": \"Tamer\"\r\n}",
+					"raw": "{\r\n    \"copyStageFromName\": \"Wizzard\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -377,15 +377,73 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/players/Darkness/stages",
+					"raw": "localhost:3000/players/Shield/stages",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"players",
-						"Darkness",
+						"Shield",
 						"stages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Correct skill points",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"skillExpLevel\": 108,\r\n    \"totalSkillPoints\": 443,\r\n    \"availableSkillPoints\": 443,\r\n    \"currentSkillPointsExp\": 534221\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/players/Maehwa/correctSkillPoints",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players",
+						"Maehwa",
+						"correctSkillPoints"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download server data (stop db server before running this)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/downloadServerData?folderPath=D:/Black Desert Offline/BDO519LouLx/BDO519",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"downloadServerData"
+					],
+					"query": [
+						{
+							"key": "folderPath",
+							"value": "C:/work/freetime/game/BDO519/Database/data",
+							"disabled": true
+						},
+						{
+							"key": "folderPath",
+							"value": "D:/Black Desert Offline/BDO519LouLx/BDO519"
+						}
 					]
 				}
 			},

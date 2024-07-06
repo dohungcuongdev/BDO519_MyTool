@@ -630,7 +630,7 @@ const fs = require('fs-extra');
 const archiver = require('archiver');
 const path = require('path');
 app.get('/downloadServerData', async (req, res) => {
-    const folderPath = 'C:/work/freetime/game/BDO519/Database/data';
+    const folderPath = req.query.folderPath ? req.query.folderPath : 'C:/work/freetime/game/BDO519/Database/data';
     const zipFileName = 'data.zip';
     const zipFilePath = path.join(__dirname, zipFileName);
 
