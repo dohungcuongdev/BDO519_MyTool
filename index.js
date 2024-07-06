@@ -634,6 +634,8 @@ app.get('/downloadServerData', async (req, res) => {
     const zipFileName = 'data.zip';
     const zipFilePath = path.join(__dirname, zipFileName);
 
+    console.log("zipping data");
+
     // Create a zip archive of the folder
     const output = fs.createWriteStream(zipFilePath);
     const archive = archiver('zip', {

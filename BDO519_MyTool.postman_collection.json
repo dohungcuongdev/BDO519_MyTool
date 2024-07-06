@@ -426,7 +426,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/downloadServerData?folderPath=D:/Black Desert Offline/BDO519LouLx/BDO519",
+					"raw": "localhost:3000/downloadServerData?folderPath=D:/Black Desert Offline/BDO519LouLx/BDO519/Database/data",
 					"host": [
 						"localhost"
 					],
@@ -442,7 +442,7 @@
 						},
 						{
 							"key": "folderPath",
-							"value": "D:/Black Desert Offline/BDO519LouLx/BDO519"
+							"value": "D:/Black Desert Offline/BDO519LouLx/BDO519/Database/data"
 						}
 					]
 				}
