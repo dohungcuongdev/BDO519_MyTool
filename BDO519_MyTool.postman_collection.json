@@ -398,7 +398,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"exclude\": \"Ranger\"\r\n}",
+					"raw": "{\r\n    \"exclude\": [\r\n        \"Ranger\"\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

@@ -526,7 +526,7 @@ app.post('/accounts/stages', async (req, res) => {
         req.body.copyStageFromName = getHighestLevelAndExp(players).name;
     }
     for (let player of players) {
-        if (!req.body.exclude && Array.isArray(req.body.exclude) && req.body.exclude.includes(player.name)) {
+        if (req.body.exclude && Array.isArray(req.body.exclude) && req.body.exclude.includes(player.name)) {
             exclude.push(player.name);
             continue;
         }
