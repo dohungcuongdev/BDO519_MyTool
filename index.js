@@ -517,20 +517,25 @@ function encodeCheckedQuestData(checkedQuestData) {
 app.post('/accounts/stages', async (req, res) => {
     let success = [];
     let fail = [];
+    let exclude = [];
     const players = await getPlayers(req);
     if (players.length === 0) {
-        res.status(200).json({success, fail}); return;
+        res.status(200).json({success, fail, exclude}); return;
     }
     if (!req.body.copyStageFromName) {
         req.body.copyStageFromName = getHighestLevelAndExp(players).name;
     }
     for (let player of players) {
+        if (!req.body.exclude && Array.isArray(req.body.exclude) && req.body.exclude.includes(player.name)) {
+            exclude.push(player.name);
+            continue;
+        }
         req.params.name = player.name;
         const result = await copyPlayerStages(req);
         if (result.error) fail.push({name: player.name, reason: result.error});
         else success.push(player.name);
     }
-    res.status(200).json({success, fail});
+    res.status(200).json({success, fail, exclude});
 })
 
 function getHighestLevelAndExp(players) {

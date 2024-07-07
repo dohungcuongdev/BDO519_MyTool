@@ -140,14 +140,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/players/Ranger",
+					"raw": "localhost:3000/players/Wizzard",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"players",
-						"Ranger"
+						"Wizzard"
 					]
 				}
 			},
@@ -398,7 +398,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n    \"exclude\": \"Ranger\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
